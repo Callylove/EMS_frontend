@@ -14,6 +14,7 @@ const UserProfile = () => {
     const [userDetails, setUserDetails] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 //   const UserRecords = ()=> {
 //     axios.get('http://localhost:3000/user/details')
 //     .then(res=>{
@@ -31,7 +32,7 @@ useEffect(() => {
         // const response = await axios.get('http://localhost:3000/user/details', { withCredentials: true });
         
      
-        const response = await axios.get('https://ems-backend-hd5f.onrender.com/user/details', { withCredentials: true });
+        const response = await axios.get(`${apiUrl}/user/details`, { withCredentials: true });
     
         
         

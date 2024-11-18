@@ -12,7 +12,7 @@ export default function AdminDashboard() {
    const [salaryTotal, setSalaryTotal] = useState()
    const [admins,setAdmins] = useState([])
        // eslint-disable-next-line no-undef
-       const apiUrl = process.env.REACT_APP_API_URL;
+       const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
    
    const AdminRecords = ()=> {
     axios.get(`${apiUrl}/admin/admin_records`)

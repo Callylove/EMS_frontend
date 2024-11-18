@@ -7,7 +7,7 @@ const Employees = () => {
   const navigate = useNavigate()
   const [err, setErr] = useState('')
     // eslint-disable-next-line no-undef
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
   useEffect(()=>{
       axios.get(`${apiUrl}/admin/employee`).then(res=>{
           if(res.data.Status){

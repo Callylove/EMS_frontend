@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 // import React from 'react';
 export default function AddCategory() {
           // eslint-disable-next-line no-undef
-          const apiUrl = process.env.REACT_APP_API_URL;
+          const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
     const [category,setCategory] = useState(null)
     const [err,setErr] = useState('')
     const navigate = useNavigate();

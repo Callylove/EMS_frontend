@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function AddEmployee() {
         // eslint-disable-next-line no-undef
-        const apiUrl = process.env.REACT_APP_API_URL;
+        const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
     const [category,setCategory] = useState([])
     const navigate = useNavigate();    
     const [errors, setErrors] = useState({

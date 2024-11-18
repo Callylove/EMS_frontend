@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditEmployee() {
         // eslint-disable-next-line no-undef
-        const apiUrl = process.env.REACT_APP_API_URL;
+        const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
     const {id} = useParams();
     const navigate = useNavigate();
    
