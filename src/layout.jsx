@@ -121,11 +121,12 @@ const Layout = () => {
   const [sidebarItems, setSidebarItems] = useState([]);
   const navigate = useNavigate();
   axios.defaults.withCredentials = true
+  const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
   // Handle logout functionality
   const handleLogout = () => {
 
     
-    axios.get('https://ems-backend-hd5f.onrender.com/admin/logout') // Make sure the request sends credentials
+    axios.get(`${apiUrl}/admin/logout`) // Make sure the request sends credentials
       .then(res => {
         console.log(res.data);
         
@@ -142,7 +143,7 @@ const Layout = () => {
   };
   const fetchUserRoleAndSetSidebar = async () => {
     try {
-      const response = await axios.get('https://ems-backend-hd5f.onrender.com/auth/dashboard', { withCredentials: true });
+      const response = await axios.get(`${apiUrl}/auth/dashboard`, { withCredentials: true });
       const role = response.data.user.role;  
       console.log('Role:', role);
 
