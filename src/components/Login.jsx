@@ -3,6 +3,8 @@ import  { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 // import React from 'react';
 export default function Login() {
+      // eslint-disable-next-line no-undef
+      const apiUrl = process.env.REACT_APP_API_URL;
     const navigate = useNavigate()
     const [errors,setErrors] = useState(null)
     const [values,setValues] = useState({
@@ -14,7 +16,7 @@ export default function Login() {
       
         
 e.preventDefault()
-axios.post('http://localhost:3000/auth/login',values)
+axios.post(`${apiUrl}/auth/login`,values)
 .then(res=>{
     
     if (res.data.loginStatus) {

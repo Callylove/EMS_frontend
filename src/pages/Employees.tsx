@@ -6,8 +6,10 @@ const Employees = () => {
   const [employee,setEmployee] = useState<any>([])
   const navigate = useNavigate()
   const [err, setErr] = useState('')
+    // eslint-disable-next-line no-undef
+    const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(()=>{
-      axios.get('http://localhost:3000/admin/employee').then(res=>{
+      axios.get(`${apiUrl}/admin/employee`).then(res=>{
           if(res.data.Status){
               console.log(res.data.Result);
               
@@ -19,7 +21,7 @@ const Employees = () => {
   },[])
   const [category,setCategory] = useState<any>([])
     useEffect(()=>{
-        axios.get('http://localhost:3000/admin/category').then(res=>{
+        axios.get(`${apiUrl}/admin/category`).then(res=>{
             if(res.data.Status){
                 console.log(res.data.Result);
                 
@@ -41,7 +43,7 @@ const Employees = () => {
       category_id: categoryMap[emp.category_id] || 'Unknown Category'  // Replace with category name
   }));
   const handleDelete = (id) => {
-axios.delete(`http://localhost:3000/admin/delete_employee/${id}`)
+axios.delete(`${apiUrl}/admin/delete_employee/${id}`)
 .then(res=>{
   if(res.data.Status){
     window.location.reload()

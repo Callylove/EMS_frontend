@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 
 const Category = () => {
     const [category,setCategory] = useState([])
+      // eslint-disable-next-line no-undef
+  const apiUrl = process.env.REACT_APP_API_URL;
     useEffect(()=>{
-        axios.get('http://localhost:3000/admin/category').then(res=>{
+        axios.get(`${apiUrl}/admin/category`).then(res=>{
             if(res.data.Status){
                 console.log(res.data.Result);
                 

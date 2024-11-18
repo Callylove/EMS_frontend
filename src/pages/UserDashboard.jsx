@@ -13,7 +13,7 @@ const UserDashboard = () => {
         // const response = await axios.get('http://localhost:3000/user/details', { withCredentials: true });
         
      
-        const response = await axios.get('http://localhost:3000/user/details', { withCredentials: true });
+        const response = await axios.get('https://ems-backend-hd5f.onrender.com/user/details', { withCredentials: true });
     
         
         

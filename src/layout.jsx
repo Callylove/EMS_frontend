@@ -125,7 +125,7 @@ const Layout = () => {
   const handleLogout = () => {
 
     
-    axios.get('http://localhost:3000/admin/logout') // Make sure the request sends credentials
+    axios.get('https://ems-backend-hd5f.onrender.com/admin/logout') // Make sure the request sends credentials
       .then(res => {
         console.log(res.data);
         
@@ -142,7 +142,7 @@ const Layout = () => {
   };
   const fetchUserRoleAndSetSidebar = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/auth/dashboard', { withCredentials: true });
+      const response = await axios.get('https://ems-backend-hd5f.onrender.com/auth/dashboard', { withCredentials: true });
       const role = response.data.user.role;  
       console.log('Role:', role);
 

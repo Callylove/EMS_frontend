@@ -5,8 +5,10 @@ import { useEffect, useState } from "react";
 
 const Profile = () => {
   const [admins,setAdmins] = useState([])
+    // eslint-disable-next-line no-undef
+    const apiUrl = process.env.REACT_APP_API_URL;
   const AdminRecords = ()=> {
-    axios.get('http://localhost:3000/admin/admin_records')
+    axios.get(`${apiUrl}/admin/admin_records`)
     .then(res=>{
       if(res.data.Status) {
         setAdmins(res.data.Result)

@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 // import React from 'react';
 
 export default function AddEmployee() {
+        // eslint-disable-next-line no-undef
+        const apiUrl = process.env.REACT_APP_API_URL;
     const [category,setCategory] = useState([])
     const navigate = useNavigate();    
     const [errors, setErrors] = useState({
@@ -16,7 +18,7 @@ export default function AddEmployee() {
       password:''
     });
     useEffect(()=>{
-        axios.get('http://localhost:3000/admin/category').then(res=>{
+        axios.get(`${apiUrl}admin/category`).then(res=>{
             if(res.data.Status){
                 console.log(res.data.Result);
                 
@@ -138,7 +140,7 @@ export default function AddEmployee() {
       formData.append('image', employee.image);  // File data
     
       try {
-        const response = await axios.post('http://localhost:3000/admin/add_employee', formData, {
+        const response = await axios.post(`${apiUrl}/admin/add_employee`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data', // Required for file uploads with Axios
           },

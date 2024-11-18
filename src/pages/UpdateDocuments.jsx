@@ -123,11 +123,13 @@ const UpdateDocuments = () => {
     jobTerminate:'',
   });
   const navigate = useNavigate()
+  // eslint-disable-next-line no-undef
+  const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(() => {
     // Fetch user details from the server
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/user/details', { withCredentials: true });
+        const response = await axios.get(`${apiUrl}/user/details`, { withCredentials: true });
 
         if (response.data.Status) {
           setUserDetails(response.data.user);
@@ -241,7 +243,7 @@ const validateForm = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post(`http://localhost:3000/user/updateProfile/${userID}`, formData, {
+      const response = await axios.post(`${apiUrl}/user/updateProfile/${userID}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         withCredentials: true,
       });

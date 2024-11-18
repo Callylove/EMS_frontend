@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditAdmin() {
+        // eslint-disable-next-line no-undef
+        const apiUrl = process.env.REACT_APP_API_URL;
     const {id} = useParams();
     const navigate = useNavigate();
    
@@ -25,7 +27,7 @@ export default function EditAdmin() {
       useEffect(()=>{
         
 
-    axios.get(`http://localhost:3000/admin/admin_records`).then(res=>{
+    axios.get(`${apiUrl}/admin/admin_records`).then(res=>{
         if(res.data.Status){
             console.log(res.data.Result);
             
@@ -78,7 +80,7 @@ e.preventDefault();
 if (!validateForm()) {
     return;
   }
-axios.put(`http://localhost:3000/admin/edit_admin/${id}`, admin)
+axios.put(`${apiUrl}/admin/edit_admin/${id}`, admin)
 .then(res=>{
     if(res.data.Status){
         navigate('/admin/dashboard')

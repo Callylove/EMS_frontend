@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditEmployee() {
+        // eslint-disable-next-line no-undef
+        const apiUrl = process.env.REACT_APP_API_URL;
     const {id} = useParams();
     const navigate = useNavigate();
    
@@ -30,7 +32,7 @@ export default function EditEmployee() {
     
       const [category,setCategory] = useState([])
       useEffect(()=>{
-        axios.get('http://localhost:3000/admin/category').then(res=>{
+        axios.get(`${apiUrl}/admin/category`).then(res=>{
             if(res.data.Status){
                 console.log(res.data.Result);
                 
@@ -40,7 +42,7 @@ export default function EditEmployee() {
             }
     }).catch(err=>console.log(err))
 
-    axios.get(`http://localhost:3000/admin/employee/${id}`).then(res=>{
+    axios.get(`${apiUrl}/admin/employee/${id}`).then(res=>{
         if(res.data.Status){
             console.log(res.data.Result);
             
@@ -132,7 +134,7 @@ e.preventDefault();
 if (!validateForm()) {
     return;
   }
-axios.put(`http://localhost:3000/admin/edit_employee/${id}`, employee)
+axios.put(`${apiUrl}/admin/edit_employee/${id}`, employee)
 .then(res=>{
     if(res.data.Status){
         navigate('/admin/employees')

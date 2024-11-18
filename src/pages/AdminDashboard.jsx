@@ -11,9 +11,11 @@ export default function AdminDashboard() {
    const [employeeTotal, setEmployeeTotal] = useState()
    const [salaryTotal, setSalaryTotal] = useState()
    const [admins,setAdmins] = useState([])
+       // eslint-disable-next-line no-undef
+       const apiUrl = process.env.REACT_APP_API_URL;
    
    const AdminRecords = ()=> {
-    axios.get('http://localhost:3000/admin/admin_records')
+    axios.get(`${apiUrl}/admin/admin_records`)
     .then(res=>{
       if(res.data.Status) {
         setAdmins(res.data.Result)
@@ -21,7 +23,7 @@ export default function AdminDashboard() {
     })
    }
    const adminCount = () => {
-    axios.get('http://localhost:3000/admin/admin_count')
+    axios.get(`${apiUrl}/admin/admin_count`)
     .then(res=>{
       if(res.data.Status) {
         setAdminTotal(res.data.Result[0].admin)
@@ -29,7 +31,7 @@ export default function AdminDashboard() {
     })
    }
    const employeeCount = () => {
-    axios.get('http://localhost:3000/admin/employee_count')
+    axios.get(`${apiUrl}/admin/employee_count`)
     .then(res=>{
       if(res.data.Status) {
         setEmployeeTotal(res.data.Result[0].employee)
@@ -37,7 +39,7 @@ export default function AdminDashboard() {
     })
    }
    const salaryCount = () => {
-    axios.get('http://localhost:3000/admin/salary_count')
+    axios.get(`${apiUrl}/admin/salary_count`)
     .then(res=>{
       if(res.data.Status) {
         setSalaryTotal(res.data.Result[0].salary)
@@ -52,7 +54,7 @@ export default function AdminDashboard() {
 
    },[])
    const handleDelete = (id) => {
-    axios.delete(`http://localhost:3000/admin/delete_admin/${id}`)
+    axios.delete(`${apiUrl}/admin/delete_admin/${id}`)
     .then(res=>{
       if(res.data.Status){
         window.location.reload()
