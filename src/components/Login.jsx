@@ -3,7 +3,7 @@ import  { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 // import React from 'react';
 export default function Login() {
-      // eslint-disable-next-line no-undef
+      
       const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
     const navigate = useNavigate()
     const [errors,setErrors] = useState(null)
@@ -16,7 +16,7 @@ export default function Login() {
       
         
 e.preventDefault()
-axios.post(`${apiUrl}/auth/login`,values)
+axios.post(`${apiUrl}:3001/auth/login`,values)
 .then(res=>{
     
     if (res.data.loginStatus) {
