@@ -266,22 +266,22 @@ const Layout = () => {
   };
   
   // // Fetch user role and set sidebar only once when component mounts
-  // useEffect( async () => {
-  //  await fetchUserRoleAndSetSidebar();
-  // }, []);  // Empty dependency array to run this effect only once on mount
-  useEffect(() => {
-    // Define an inner async function
-    const fetchRoleAndSetSidebar = async () => {
-      try {
-        await fetchUserRoleAndSetSidebar();
-      } catch (error) {
-        console.error("Error in fetching role and setting sidebar:", error);
-      }
-    };
+  useEffect(  () => {
+    fetchUserRoleAndSetSidebar();
+  }, []);  // Empty dependency array to run this effect only once on mount
+  // useEffect(() => {
+  //   // Define an inner async function
+  //   const fetchRoleAndSetSidebar = async () => {
+  //     try {
+  //       await fetchUserRoleAndSetSidebar();
+  //     } catch (error) {
+  //       console.error("Error in fetching role and setting sidebar:", error);
+  //     }
+  //   };
   
-    // Call the inner async function
-    fetchRoleAndSetSidebar();
-  }, []); // Empty dependency array to run only once on mount
+  //   // Call the inner async function
+  //   fetchRoleAndSetSidebar();
+  // }, []); // Empty dependency array to run only once on mount
   return (
     <div className="flex flex-col h-screen">
       <div className="flex flex-1">
