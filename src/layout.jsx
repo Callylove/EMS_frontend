@@ -265,10 +265,32 @@ const Layout = () => {
     }
   };
   
-  // // Fetch user role and set sidebar only once when component mounts
-  useEffect(  () => {
+
+
+useEffect(() => {
+  const checkForTokenAndFetch = () => {
+    // Check if the token is present in cookies
+    const token = document.cookie.split(';').find(cookie => cookie.trim().startsWith('token'));
+
+    // If token is not set, wait 1000ms (1 second) and check again
+    if (!token) {
+      setTimeout(checkForTokenAndFetch, 1000); // Retry after 1 second
+      return;
+    }
+
+    // Token is present, fetch the user role and set the sidebar
     fetchUserRoleAndSetSidebar();
-  }, []);  // Empty dependency array to run this effect only once on mount
+  };
+
+  // Start the check when the component mounts
+  checkForTokenAndFetch();
+
+}, []);  // Empty dependency array ensures this runs only once on mount
+
+  // // Fetch user role and set sidebar only once when component mounts
+  // useEffect(  () => {
+  //   fetchUserRoleAndSetSidebar();
+  // }, []);  // Empty dependency array to run this effect only once on mount
   // useEffect(() => {
   //   // Define an inner async function
   //   const fetchRoleAndSetSidebar = async () => {
@@ -277,7 +299,7 @@ const Layout = () => {
   //     } catch (error) {
   //       console.error("Error in fetching role and setting sidebar:", error);
   //     }
-  //   };
+  //   }});
   
   //   // Call the inner async function
   //   fetchRoleAndSetSidebar();
