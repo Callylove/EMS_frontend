@@ -16,14 +16,13 @@ import EditAdmin from './components/EditAdmin';
 import UserProfile from './pages/UserProfile';
 // import UpdateUserDashboard from './pages/UserDashboard';
 import UpdateDocuments from './pages/UpdateDocuments';
-import Adminlayout from './Adminlayout';
-import Userlayout from './Userlayout';
+import Layout from './layout';
 
 
 const router = createBrowserRouter([
   {
     path: "/admin",
-    element: <Adminlayout />,
+    element: <Layout />,
     children: [
       {
         path: "dashboard",
@@ -83,7 +82,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/user",
-    element: <Userlayout />,
+    element: <Layout />,
     children: [
       {
         path: "dashboard",

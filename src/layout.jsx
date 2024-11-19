@@ -201,19 +201,19 @@
 // };
 
 // export default Layout;
-import { useState} from 'react';
+import { useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaHouseUser, FaUserFriends, FaPowerOff } from 'react-icons/fa';
+import { FaHouse, FaUserFriends, FaPowerOff, FaHouseUser } from 'react-icons/fa';
 import { IoPersonSharp } from 'react-icons/io5';
-
+import { MdFileUpload } from 'react-icons/md';
 import { TbCategoryFilled } from 'react-icons/tb';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
-import Footer from './components//Footer';
+import Footer from './components/Footer';
 import { Outlet } from 'react-router-dom';
 
-const Adminlayout = () => {
+const Layout = () => {
   const [sidebarItems, setSidebarItems] = useState([]);
   const navigate = useNavigate();
   const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
@@ -234,47 +234,41 @@ const Adminlayout = () => {
       });
   };
 
-  setSidebarItems([
-    { to: '/admin/dashboard', icon: <FaHouseUser />, label: 'Dashboard' },
-    { to: '/admin/employees', icon: <FaUserFriends />, label: 'Manage Employees' },
-    { to: '/admin/category', icon: <TbCategoryFilled />, label: 'Category' },
-    { to: '/admin/profile', icon: <IoPersonSharp />, label: 'Profile' },
-    { icon: <FaPowerOff />, label: 'Logout', onClick: handleLogout },
-  ]);
-  // Fetch user role and set sidebar items based on role
-  // const fetchUserRoleAndSetSidebar = async () => {
-  //   try {
-  //     const response = await axios.get(`${apiUrl}/auth/dashboard`, { withCredentials: true });
-  //     const role = response.data.user?.role;
-  //     console.log('Role:', role);
 
-  //     // Dynamically set sidebar items based on the role
-  //     if (role === 'admin') {
-  //       setSidebarItems([
-  //         { to: '/admin/dashboard', icon: <FaHouse />, label: 'Dashboard' },
-  //         { to: '/admin/employees', icon: <FaUserFriends />, label: 'Manage Employees' },
-  //         { to: '/admin/category', icon: <TbCategoryFilled />, label: 'Category' },
-  //         { to: '/admin/profile', icon: <IoPersonSharp />, label: 'Profile' },
-  //         { icon: <FaPowerOff />, label: 'Logout', onClick: handleLogout },
-  //       ]);
-  //     } else {
-  //       setSidebarItems([
-  //         { to: '/user/dashboard', icon: <FaHouse />, label: 'Dashboard' },
-  //         { to: '/user/update', icon: <MdFileUpload />, label: 'Update Documents' },
-  //         { to: '/user/profile', icon: <IoPersonSharp />, label: 'Profile' },
-  //         { icon: <FaPowerOff />, label: 'Logout', onClick: handleLogout },
-  //       ]);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error fetching role:', error);
-  //     navigate('/auth/login');  // Redirect to login if there's an error
-  //   }
-  // };
+  // Fetch user role and set sidebar items based on role
+  const fetchUserRoleAndSetSidebar = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/auth/dashboard`, { withCredentials: true });
+      const role = response.data.user?.role;
+      console.log('Role:', role);
+
+      // Dynamically set sidebar items based on the role
+      if (role === 'admin') {
+        setSidebarItems([
+          { to: '/admin/dashboard', icon: <FaHouse />, label: 'Dashboard' },
+          { to: '/admin/employees', icon: <FaUserFriends />, label: 'Manage Employees' },
+          { to: '/admin/category', icon: <TbCategoryFilled />, label: 'Category' },
+          { to: '/admin/profile', icon: <IoPersonSharp />, label: 'Profile' },
+          { icon: <FaPowerOff />, label: 'Logout', onClick: handleLogout },
+        ]);
+      } else {
+        setSidebarItems([
+          { to: '/user/dashboard', icon: <FaHouseUser />, label: 'Dashboard' },
+          { to: '/user/update', icon: <MdFileUpload />, label: 'Update Documents' },
+          { to: '/user/profile', icon: <IoPersonSharp />, label: 'Profile' },
+          { icon: <FaPowerOff />, label: 'Logout', onClick: handleLogout },
+        ]);
+      }
+    } catch (error) {
+      console.error('Error fetching role:', error);
+      navigate('/auth/login');  // Redirect to login if there's an error
+    }
+  };
   
   // Fetch user role and set sidebar only once when component mounts
-  // useEffect(() => {
-  //   fetchUserRoleAndSetSidebar();
-  // }, []);  // Empty dependency array to run this effect only once on mount
+  useEffect(() => {
+    fetchUserRoleAndSetSidebar();
+  }, []);  // Empty dependency array to run this effect only once on mount
 
   return (
     <div className="flex flex-col h-screen">
@@ -299,4 +293,4 @@ const Adminlayout = () => {
   );
 };
 
-export default Adminlayout;
+export default Layout;
