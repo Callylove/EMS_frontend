@@ -204,7 +204,7 @@
 import { useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaHouse, FaUserFriends, FaPowerOff, FaHouseUser } from 'react-icons/fa';
+import {  FaUserFriends, FaPowerOff, FaHouseUser } from 'react-icons/fa';
 import { IoPersonSharp } from 'react-icons/io5';
 import { MdFileUpload } from 'react-icons/md';
 import { TbCategoryFilled } from 'react-icons/tb';
