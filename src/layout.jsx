@@ -266,26 +266,54 @@ const Layout = () => {
   };
   
 
+  const [isCookieSet, setIsCookieSet] = useState(false);
 
-useEffect(() => {
-  const checkForTokenAndFetch = () => {
-    // Check if the token is present in cookies
-    const token = document.cookie.split(';').find(cookie => cookie.trim().startsWith('token'));
+  useEffect(() => {
+    const checkForToken = () => {
+      const token = document.cookie.split(';').find(cookie => cookie.trim().startsWith('token'));
+      if (token) {
+        setIsCookieSet(true);  // Set state when token is found
+      }
+    };
 
-    // If token is not set, wait 1000ms (1 second) and check again
-    if (!token) {
-      setTimeout(checkForTokenAndFetch, 1000); // Retry after 1 second
-      return;
-    }
+    // Check once when the component mounts
+    checkForToken();
 
-    // Token is present, fetch the user role and set the sidebar
+    // Set an interval to keep checking if the cookie is set (use a longer interval like 1 second)
+    const intervalId = setInterval(() => {
+      checkForToken();
+    }, 1000);  // Check every 1 second
+
+    // Cleanup interval when component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
+
+  if (isCookieSet) {
     fetchUserRoleAndSetSidebar();
-  };
+  }
+  // UseEffect to fetch user role and set sidebar once cookie is set
+  useEffect(() => {
+    
+  }, [isCookieSet]);
+// useEffect(() => {
+//   const checkForTokenAndFetch = () => {
+//     // Check if the token is present in cookies
+//     const token = document.cookie.split(';').find(cookie => cookie.trim().startsWith('token'));
 
-  // Start the check when the component mounts
-  checkForTokenAndFetch();
+//     // If token is not set, wait 1000ms (1 second) and check again
+//     if (!token) {
+//       setTimeout(checkForTokenAndFetch, 1000); // Retry after 1 second
+//       return;
+//     }
 
-}, []);  // Empty dependency array ensures this runs only once on mount
+//     // Token is present, fetch the user role and set the sidebar
+//     fetchUserRoleAndSetSidebar();
+//   };
+
+//   // Start the check when the component mounts
+//   checkForTokenAndFetch();
+
+// }, []);  // Empty dependency array ensures this runs only once on mount
 
   // // Fetch user role and set sidebar only once when component mounts
   // useEffect(  () => {
