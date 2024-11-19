@@ -16,7 +16,7 @@ export default function Login() {
       
         
 e.preventDefault()
-axios.post(`${apiUrl}:3001/auth/login`,values)
+axios.post(`${apiUrl}/auth/login`,values)
 .then(res=>{
     
     if (res.data.loginStatus) {

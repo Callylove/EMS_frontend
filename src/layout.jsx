@@ -126,7 +126,7 @@ const Layout = () => {
   const handleLogout = () => {
 
     
-    axios.get(`${apiUrl}:3001/admin/logout`) // Make sure the request sends credentials
+    axios.get(`${apiUrl}/admin/logout`) // Make sure the request sends credentials
       .then(res => {
         console.log(res.data);
         
@@ -143,7 +143,7 @@ const Layout = () => {
   };
   const fetchUserRoleAndSetSidebar = async () => {
     try {
-      const response = await axios.get(`${apiUrl}:3001/auth/dashboard`, { withCredentials: true });
+      const response = await axios.get(`${apiUrl}/auth/dashboard`, { withCredentials: true });
       const role = response.data.user.role;  
       console.log('Role:', role);
 
