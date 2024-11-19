@@ -245,7 +245,7 @@ const Layout = () => {
       // Dynamically set sidebar items based on the role
       if (role === 'admin') {
         setSidebarItems([
-          { to: '/admin/dashboard', icon: <FaHouse />, label: 'Dashboard' },
+          { to: '/admin/dashboard', icon: <FaHouseUser />, label: 'Dashboard' },
           { to: '/admin/employees', icon: <FaUserFriends />, label: 'Manage Employees' },
           { to: '/admin/category', icon: <TbCategoryFilled />, label: 'Category' },
           { to: '/admin/profile', icon: <IoPersonSharp />, label: 'Profile' },
