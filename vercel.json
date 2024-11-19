@@ -1,10 +1,5 @@
-
-
 {
-  "routes": [
-    {
-      "src": "/.well-known/vercel/microfrontend-routing",
-      "dest": "/path-to-your-frontend-or-function"
-    }
+  "rewrites":  [
+    {"source": "/(.*)", "destination": "/"}
   ]
 }
