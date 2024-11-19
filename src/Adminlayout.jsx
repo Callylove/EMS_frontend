@@ -204,13 +204,13 @@
 import { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaHouse, FaUserFriends, FaPowerOff } from 'react-icons/fa';
+import { FaHouseUser, FaUserFriends, FaPowerOff } from 'react-icons/fa';
 import { IoPersonSharp } from 'react-icons/io5';
 
 import { TbCategoryFilled } from 'react-icons/tb';
-import Sidebar from './Sidebar';
-import Header from './Header';
-import Footer from './Footer';
+import Sidebar from './components/Sidebar';
+import Header from './components/Header';
+import Footer from './components//Footer';
 import { Outlet } from 'react-router-dom';
 
 const Adminlayout = () => {
@@ -235,7 +235,7 @@ const Adminlayout = () => {
   };
 
   setSidebarItems([
-    { to: '/admin/dashboard', icon: <FaHouse />, label: 'Dashboard' },
+    { to: '/admin/dashboard', icon: <FaHouseUser />, label: 'Dashboard' },
     { to: '/admin/employees', icon: <FaUserFriends />, label: 'Manage Employees' },
     { to: '/admin/category', icon: <TbCategoryFilled />, label: 'Category' },
     { to: '/admin/profile', icon: <IoPersonSharp />, label: 'Profile' },

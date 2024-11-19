@@ -204,13 +204,14 @@
 import { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaHouse, FaPowerOff } from 'react-icons/fa';
+import { FaHouseUser, FaPowerOff } from 'react-icons/fa';
+
 import { IoPersonSharp } from 'react-icons/io5';
 import { MdFileUpload } from 'react-icons/md';
 
-import Sidebar from './Sidebar';
-import Header from './Header';
-import Footer from './Footer';
+import Sidebar from './components/Sidebar';
+import Header from './components/Header';
+import Footer from './components//Footer';
 import { Outlet } from 'react-router-dom';
 
 const Userlayout = () => {
@@ -235,7 +236,7 @@ const Userlayout = () => {
   };
 
         setSidebarItems([
-          { to: '/user/dashboard', icon: <FaHouse />, label: 'Dashboard' },
+          { to: '/user/dashboard', icon: <FaHouseUser />, label: 'Dashboard' },
           { to: '/user/update', icon: <MdFileUpload />, label: 'Update Documents' },
           { to: '/user/profile', icon: <IoPersonSharp />, label: 'Profile' },
           { icon: <FaPowerOff />, label: 'Logout', onClick: handleLogout },
