@@ -1,6 +1,6 @@
 // import React from 'react';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
-import Layout from './layout';
+// import Layout from './layout';
 import AdminDashboard from './pages/AdminDashboard';  
 import Employees from './pages/Employees';
 import Profile from './pages/AdminProfile';
@@ -16,12 +16,14 @@ import EditAdmin from './components/EditAdmin';
 import UserProfile from './pages/UserProfile';
 // import UpdateUserDashboard from './pages/UserDashboard';
 import UpdateDocuments from './pages/UpdateDocuments';
+import Adminlayout from './Adminlayout';
+import Userlayout from './Userlayout';
 
 
 const router = createBrowserRouter([
   {
     path: "/admin",
-    element: <Layout />,
+    element: <Adminlayout />,
     children: [
       {
         path: "dashboard",
@@ -81,7 +83,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/user",
-    element: <Layout />,
+    element: <Userlayout />,
     children: [
       {
         path: "dashboard",
