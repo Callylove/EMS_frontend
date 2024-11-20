@@ -5,6 +5,7 @@ import { AuthContext } from './createContext';
 
 
 // Create provider component
+// eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
   const [role, setRole] = useState(localStorage.getItem('role') || null);
 
