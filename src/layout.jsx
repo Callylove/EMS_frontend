@@ -233,68 +233,110 @@ const Layout = () => {
         console.error('Logout error:', err);
       });
   };
-
-
-  // Fetch user role and set sidebar items based on role
-  const fetchUserRoleAndSetSidebar = async () => {
-    try {
-      const response = await axios.get(`${apiUrl}/auth/dashboard`, { withCredentials: true });
-      const role = response.data.user.role;
-      console.log('Role:', role);
-
-      // Dynamically set sidebar items based on the role
-      if (role === 'admin') {
-        setSidebarItems([
-          { to: '/admin/dashboard', icon: <FaHouseUser />, label: 'Dashboard' },
-          { to: '/admin/employees', icon: <FaUserFriends />, label: 'Manage Employees' },
-          { to: '/admin/category', icon: <TbCategoryFilled />, label: 'Category' },
-          { to: '/admin/profile', icon: <IoPersonSharp />, label: 'Profile' },
-          { icon: <FaPowerOff />, label: 'Logout', onClick: handleLogout },
-        ]);
-      } else {
-        setSidebarItems([
-          { to: '/user/dashboard', icon: <FaHouseUser />, label: 'Dashboard' },
-          { to: '/user/update', icon: <MdFileUpload />, label: 'Update Documents' },
-          { to: '/user/profile', icon: <IoPersonSharp />, label: 'Profile' },
-          { icon: <FaPowerOff />, label: 'Logout', onClick: handleLogout },
-        ]);
-      }
-    } catch (error) {
-      console.error('Error fetching role:', error);
-      navigate('/auth/login');  // Redirect to login if there's an error
+  // Fetch the user role and dynamically set sidebar items after login
+  const fetchUserRoleAndSetSidebar = (role) => {
+    if (role === 'admin') {
+      setSidebarItems([
+        { to: '/admin/dashboard', icon: <FaHouseUser />, label: 'Dashboard' },
+        { to: '/admin/employees', icon: <FaUserFriends />, label: 'Manage Employees' },
+        { to: '/admin/category', icon: <TbCategoryFilled />, label: 'Category' },
+        { to: '/admin/profile', icon: <IoPersonSharp />, label: 'Profile' },
+        { icon: <FaPowerOff />, label: 'Logout', onClick: handleLogout },
+      ]);
+    } else if (role === 'user') {
+      setSidebarItems([
+        { to: '/user/dashboard', icon: <FaHouseUser />, label: 'Dashboard' },
+        { to: '/user/update', icon: <MdFileUpload />, label: 'Update Documents' },
+        { to: '/user/profile', icon: <IoPersonSharp />, label: 'Profile' },
+        { icon: <FaPowerOff />, label: 'Logout', onClick: handleLogout },
+      ]);
     }
   };
+
+  // Example of handling the login process and setting the role from the response
+  const handleLogin = async (email, password) => {
+    try {
+      const response = await axios.post(`${apiUrl}/auth/login`, { email, password });
+
+      // Assuming the role is returned in the response data
+      const userRole = response.data.user.role;
+      console.log('User Role:', userRole);
+
+      // Set the role and sidebar items after login
+
+      fetchUserRoleAndSetSidebar(userRole);  // Update sidebar based on role
+
+      // You may also want to store the role in localStorage or sessionStorage if needed
+      localStorage.setItem('role', userRole); // For persistent storage (optional)
+      navigate('/dashboard');  // Redirect to the dashboard page
+    } catch (error) {
+      console.error('Login Error:', error);
+      // Handle the error (e.g., display error message)
+    }
+  };
+
+
+
+  // // Fetch user role and set sidebar items based on role
+  // const fetchUserRoleAndSetSidebar = async () => {
+  //   try {
+  //     const response = await axios.get(`${apiUrl}/auth/dashboard`, { withCredentials: true });
+  //     const role = response.data.user.role;
+  //     console.log('Role:', role);
+
+  //     // Dynamically set sidebar items based on the role
+  //     if (role === 'admin') {
+  //       setSidebarItems([
+  //         { to: '/admin/dashboard', icon: <FaHouseUser />, label: 'Dashboard' },
+  //         { to: '/admin/employees', icon: <FaUserFriends />, label: 'Manage Employees' },
+  //         { to: '/admin/category', icon: <TbCategoryFilled />, label: 'Category' },
+  //         { to: '/admin/profile', icon: <IoPersonSharp />, label: 'Profile' },
+  //         { icon: <FaPowerOff />, label: 'Logout', onClick: handleLogout },
+  //       ]);
+  //     } else {
+  //       setSidebarItems([
+  //         { to: '/user/dashboard', icon: <FaHouseUser />, label: 'Dashboard' },
+  //         { to: '/user/update', icon: <MdFileUpload />, label: 'Update Documents' },
+  //         { to: '/user/profile', icon: <IoPersonSharp />, label: 'Profile' },
+  //         { icon: <FaPowerOff />, label: 'Logout', onClick: handleLogout },
+  //       ]);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching role:', error);
+  //     navigate('/auth/login');  // Redirect to login if there's an error
+  //   }
+  // };
   
 
-  const [isCookieSet, setIsCookieSet] = useState(false);
+  // const [isCookieSet, setIsCookieSet] = useState(false);
 
-  useEffect(() => {
-    const checkForToken = () => {
-      const token = document.cookie.split(';').find(cookie => cookie.trim().startsWith('token'));
-      if (token) {
-        setIsCookieSet(true);  // Set state when token is found
-      }
-    };
+  // useEffect(() => {
+  //   const checkForToken = () => {
+  //     const token = document.cookie.split(';').find(cookie => cookie.trim().startsWith('token'));
+  //     if (token) {
+  //       setIsCookieSet(true);  // Set state when token is found
+  //     }
+  //   };
 
-    // Check once when the component mounts
-    checkForToken();
+  //   // Check once when the component mounts
+  //   checkForToken();
 
-    // Set an interval to keep checking if the cookie is set (use a longer interval like 1 second)
-    const intervalId = setInterval(() => {
-      checkForToken();
-    }, 1000);  // Check every 1 second
+  //   // Set an interval to keep checking if the cookie is set (use a longer interval like 1 second)
+  //   const intervalId = setInterval(() => {
+  //     checkForToken();
+  //   }, 1000);  // Check every 1 second
 
-    // Cleanup interval when component unmounts
-    return () => clearInterval(intervalId);
-  }, []);
+  //   // Cleanup interval when component unmounts
+  //   return () => clearInterval(intervalId);
+  // }, []);
 
-  if (isCookieSet) {
-    fetchUserRoleAndSetSidebar();
-  }
-  // UseEffect to fetch user role and set sidebar once cookie is set
-  useEffect(() => {
+  // if (isCookieSet) {
+  //   fetchUserRoleAndSetSidebar();
+  // }
+  // // UseEffect to fetch user role and set sidebar once cookie is set
+  // useEffect(() => {
     
-  }, [isCookieSet]);
+  // }, [isCookieSet]);
 // useEffect(() => {
 //   const checkForTokenAndFetch = () => {
 //     // Check if the token is present in cookies
