@@ -68,7 +68,7 @@ useEffect(() => {
      
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-center">
-        <img src={`http://localhost:3000/images/${userDetails?.image}`} alt={userDetails?.id} className="h-16 w-16 rounded-full object-cover" />
+        <img src={`${apiUrl}/images/${userDetails?.image}`} alt={userDetails?.id} className="h-16 w-16 rounded-full object-cover" />
         </div>
    <hr />
         <div className="flex justify-between">
