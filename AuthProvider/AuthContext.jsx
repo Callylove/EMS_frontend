@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { AuthContext } from './createContext';
+// AuthContext.js
+import  { createContext, useState } from 'react';
 
 // Create context
-
+// eslint-disable-next-line react-refresh/only-export-components
+export const AuthContext = createContext();
 
 // Create provider component
 // eslint-disable-next-line react/prop-types
@@ -25,5 +26,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-
