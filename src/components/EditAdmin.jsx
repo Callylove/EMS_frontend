@@ -9,6 +9,8 @@ export default function EditAdmin() {
         const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
     const {id} = useParams();
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false); // Add loading state
+    const [successMessage, setSuccessMessage] = useState(""); 
    
     // console.log(id);
     
@@ -80,24 +82,39 @@ e.preventDefault();
 if (!validateForm()) {
     return;
   }
+  setIsLoading(true); // Start loading when form is submitted
 axios.put(`${apiUrl}/admin/edit_admin/${id}`, admin)
 .then(res=>{
     if(res.data.Status){
-        navigate('/admin/dashboard')
+      setIsLoading(false);
+      setSuccessMessage("Admin edited Successful! Redirecting to dashboard...");
+
+      // Show the success message for 2 seconds before redirecting
+      setTimeout(() => {
+        navigate('/admin/dashboard')// Redirect to dashboard
+      }, 2000);
+        
     }
     else {
+      setIsLoading(false)
         setErrors({...errors, db: res.data.error})
     }
     
 })
 .catch(err=>{
+  setIsLoading(false)
     console.log(err);
     
 })
   }
   return (
     <div className='w-full flex flex-col min-h-screen justify-start items-center '>
-       
+           {/* Display success message */}
+           {successMessage && (
+          <div className="text-green-600 mb-2">
+            <p>{successMessage}</p>
+          </div>
+        )}
     <div className='flex flex-col border rounded shadow p-2 md:p-6'>
   
         <h2 className='text-xl font-bold tracking-medium mb-6 text-center text-green-600'>Edit Admin</h2>
@@ -121,12 +138,19 @@ axios.put(`${apiUrl}/admin/edit_admin/${id}`, admin)
        {errors.email && <span className="text-red-600">{errors.email}</span>}
       
      
-      <button
-        type="submit"
-        className="border w-[150px] h-10 self-center justify-self-center mt-6 rounded border-green-600 bg-green-600 text-white hover:bg-green-500"
-      >
-        Edit Admin
-      </button>
+       <div className="flex justify-center items-center w-full">
+  <button
+    type="submit"
+    className="border w-[80px] h-8  flex items-center justify-center rounded border-green-600 bg-green-600 text-white hover:bg-green-500"
+    disabled={isLoading} // Disable the button while loading
+  >
+    {isLoading ? (
+      <div className="w-5 h-5 border-4 border-t-4 border-white rounded-full animate-spin"></div>
+    ) : (
+      'Edit Admin'
+    )}
+  </button>
+</div>
       </form>
     </div>
 </div>

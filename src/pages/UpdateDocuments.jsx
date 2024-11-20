@@ -137,7 +137,7 @@ const UpdateDocuments = () => {
           setError('Failed to load user details');
         }
       } catch (err) {
-        setError('Error fetching user data');
+        setError('Error fetching user data', err);
       } finally {
         setLoading(false);
       }

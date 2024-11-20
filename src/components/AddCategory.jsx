@@ -53,6 +53,7 @@ export default function AddCategory() {
   const [category, setCategory] = useState('');
   const [err, setErr] = useState('');
   const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [successMessage, setSuccessMessage] = useState(""); 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -65,7 +66,13 @@ export default function AddCategory() {
         console.log(res.data);
 
         if (res.data.Status) {
-          navigate('/admin/category');
+            setSuccessMessage("Category added Successful! Redirecting to category...");
+
+            // Show the success message for 2 seconds before redirecting
+            setTimeout(() => {
+                navigate('/admin/category');// Redirect to category
+            }, 2000);
+       
         } else {
           setErr(res.data.error);
         }
@@ -81,6 +88,12 @@ export default function AddCategory() {
 
   return (
     <div className='w-full flex flex-col min-h-screen justify-start items-center'>
+           {/* Display success message */}
+       {successMessage && (
+          <div className="text-green-600 mb-2">
+            <p>{successMessage}</p>
+          </div>
+        )}
       <div className='flex flex-col border rounded shadow p-6'>
         <h2 className='text-xl font-bold tracking-medium mb-6 text-center text-green-600'>
           Add Category
@@ -102,11 +115,11 @@ export default function AddCategory() {
                 <div className="flex justify-center items-center w-full">
   <button
     type="submit"
-    className="border w-[80px] h-8 rounded border-green-600 bg-green-600 text-white hover:bg-green-500"
+    className="border w-[80px] h-8 rounded flex items-center justify-center border-green-600 bg-green-600 text-white hover:bg-green-500"
     disabled={isLoading} // Disable the button while loading
   >
     {isLoading ? (
-      <div className="w-5 h-5 border-4 border-t-4 border-white rounded-full animate-spin flex justify-center items-center"></div>
+      <div className="w-5 h-5 border-4 border-t-4 border-white rounded-full animate-spin"></div>
     ) : (
       'Add Category'
     )}

@@ -6,6 +6,7 @@ export default function AddEmployee() {
   // eslint-disable-next-line no-undef
   const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
   const [category, setCategory] = useState([]);
+  const [successMessage, setSuccessMessage] = useState(""); 
   const navigate = useNavigate();
   
   const [errors, setErrors] = useState({
@@ -142,7 +143,13 @@ export default function AddEmployee() {
       });
 
       if (response.data.Status) {
-        navigate('/admin/employees');
+        setSuccessMessage("Employee added Successful! Redirecting to employee...");
+
+        // Show the success message for 2 seconds before redirecting
+        setTimeout(() => {
+          navigate('/admin/employees');// Redirect to employee
+        }, 2000);
+       
       } else {
         setErrors({ ...errors, db: response.data.error });
       }
@@ -156,6 +163,12 @@ export default function AddEmployee() {
 
   return (
     <div className='w-full flex flex-col min-h-screen justify-start items-center'>
+         {/* Display success message */}
+         {successMessage && (
+          <div className="text-green-600 mb-2">
+            <p>{successMessage}</p>
+          </div>
+        )}
       <div className='flex flex-col border rounded shadow p-2 md:p-6'>
         <h2 className='text-xl font-bold tracking-medium mb-6 text-center text-green-600'>Add Employee</h2>
         <form className="grid grid-rows-2 gap-2" onSubmit={handleSubmit} method="POST" encType="multipart/form-data">
@@ -272,11 +285,11 @@ export default function AddEmployee() {
           <div className="flex justify-center items-center w-full">
   <button
     type="submit"
-    className="border w-[80px] h-8 rounded border-green-600 bg-green-600 text-white hover:bg-green-500"
+    className="border w-[80px] h-8  flex items-center justify-center rounded border-green-600 bg-green-600 text-white hover:bg-green-500"
     disabled={isLoading} // Disable the button while loading
   >
     {isLoading ? (
-      <div className="w-5 h-5 border-4 border-t-4 border-white rounded-full animate-spin flex justify-center items-center"></div>
+      <div className="w-5 h-5 border-4 border-t-4 border-white rounded-full animate-spin"></div>
     ) : (
       'Add Employee'
     )}

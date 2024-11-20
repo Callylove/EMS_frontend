@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 const Employees = () => {
   const [employee,setEmployee] = useState<any>([])
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState('');
   const [err, setErr] = useState('')
     // eslint-disable-next-line no-undef
     const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
@@ -12,7 +14,7 @@ const Employees = () => {
       axios.get(`${apiUrl}/admin/employee`).then(res=>{
           if(res.data.Status){
               console.log(res.data.Result);
-              
+              setLoading(false)
               setEmployee(res.data.Result)
           }else {
               alert(res.data.error)
@@ -23,13 +25,18 @@ const Employees = () => {
     useEffect(()=>{
         axios.get(`${apiUrl}/admin/category`).then(res=>{
             if(res.data.Status){
-                console.log(res.data.Result);
-                
+           
+                setLoading(false)
                 setCategory(res.data.Result)
             }else {
-                alert(res.data.error)
+              setLoading(false)
+                setErr(res.data.error)
             }
-    }).catch(err=>console.log(err))
+    }).catch(err=>
+      {
+        console.log(err) 
+        setLoading(false)
+      })
     },[])
     // Map category ids to names for easier lookup
     const categoryMap = category.reduce((map, category) => {
@@ -57,7 +64,8 @@ axios.delete(`${apiUrl}/admin/delete_employee/${id}`)
 })
   }
 
-  
+  if (loading) return <div className='flex justify-center items-center"'>Loading...</div>;
+ 
   return (
    <div className="px-2  mt-5 h-full w-full">
         <div className="flex justify-center">
@@ -132,7 +140,7 @@ axios.delete(`${apiUrl}/admin/delete_employee/${id}`)
         <tr key={e.id} className="border-b hover:bg-gray-50">
           <td className="px-4 py-2 text-sm text-gray-700">{e.fullname.charAt(0).toUpperCase() + e.fullname.slice(1).toLowerCase()}</td>
           <td className=" text-sm">
-            <img src={`http://localhost:3000/images/${e.image}`} alt={e.fullname} className="h-16 w-16 rounded-full object-cover" />
+            <img src={`${apiUrl}/${e.image}`} alt={e.fullname} className="h-16 w-16 rounded-full object-cover" />
           </td>
           <td className="px-4 py-2 text-sm text-gray-700">{e.email}</td>
           <td className="px-4 py-2 text-sm text-gray-700">{e.phone}</td>

@@ -5,19 +5,27 @@ import { Link } from "react-router-dom";
 
 const Category = () => {
     const [category,setCategory] = useState([])
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
       // eslint-disable-next-line no-undef
       const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
     useEffect(()=>{
         axios.get(`${apiUrl}/admin/category`).then(res=>{
             if(res.data.Status){
-                console.log(res.data.Result);
+                setLoading(false)
                 
                 setCategory(res.data.Result)
             }else {
-                alert(res.data.error)
+              setLoading(false)
+                setError(res.data.error)
             }
-    }).catch(err=>console.log(err))
+    }).catch(err=>{
+      console.log(err)
+      setLoading(false)
+    })
     },[])
+    if (loading) return <div className='flex justify-center items-center"'>Loading...</div>;
+  if (error) return <div>{error}</div>;
   return (
     <div className=" px-2 md:px-5 mt-5 h-full">
         <div className="flex justify-center">

@@ -5,19 +5,29 @@ import { useEffect, useState } from "react";
 
 const Profile = () => {
   const [admins,setAdmins] = useState([])
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
     // eslint-disable-next-line no-undef
     const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
   const AdminRecords = ()=> {
     axios.get(`${apiUrl}/admin/admin_records`)
     .then(res=>{
       if(res.data.Status) {
+        setLoading(false)
         setAdmins(res.data.Result)
       }
-    }).catch(err=>alert(err))
+    }).catch(err=>{
+      setLoading(false)
+      setError(err)
+      
+
+    })
    }
    useEffect(()=>{
     AdminRecords();
    },[])
+   if (loading) return <div className='flex justify-center items-center"'>Loading...</div>;
+   if (error) return <div>{error}</div>;
   return (
     <div>
       <h1 className="font-bold text-xl text-center">Profile</h1>

@@ -11,6 +11,8 @@ export default function AdminDashboard() {
    const [employeeTotal, setEmployeeTotal] = useState()
    const [salaryTotal, setSalaryTotal] = useState()
    const [admins,setAdmins] = useState([])
+   const [loading, setLoading] = useState(true);
+   const [error, setError] = useState('');
        // eslint-disable-next-line no-undef
        const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
    
@@ -18,6 +20,7 @@ export default function AdminDashboard() {
     axios.get(`${apiUrl}/admin/admin_records`)
     .then(res=>{
       if(res.data.Status) {
+        setLoading(false)
         setAdmins(res.data.Result)
       }
     })
@@ -26,24 +29,36 @@ export default function AdminDashboard() {
     axios.get(`${apiUrl}/admin/admin_count`)
     .then(res=>{
       if(res.data.Status) {
+        setLoading(false)
         setAdminTotal(res.data.Result[0].admin)
       }
+    })
+    .catch((err)=>{
+      setError(err)
     })
    }
    const employeeCount = () => {
     axios.get(`${apiUrl}/admin/employee_count`)
     .then(res=>{
       if(res.data.Status) {
+        setLoading(false)
         setEmployeeTotal(res.data.Result[0].employee)
       }
+    })
+    .catch((err)=>{
+      setError(err)
     })
    }
    const salaryCount = () => {
     axios.get(`${apiUrl}/admin/salary_count`)
     .then(res=>{
       if(res.data.Status) {
+        setLoading(false)
         setSalaryTotal(res.data.Result[0].salary)
       }
+    })
+    .catch((err)=>{
+      setError(err)
     })
    }
    useState(()=>{
@@ -68,7 +83,8 @@ export default function AdminDashboard() {
       
     })
       }
-    
+      if (loading) return <div className='flex justify-center items-center"'>Loading...</div>;
+      if (error) return <div>{error}</div>;
   return (
     <div >  <h1 className="font-bold text-xl mb-12">Welcome Admin</h1>
     <div className="p-3 flex flex-col md:flex-row justify-around mt-3">

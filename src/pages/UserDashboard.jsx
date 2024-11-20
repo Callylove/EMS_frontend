@@ -48,7 +48,7 @@ const UserDashboard = () => {
   //     });
   //   }, 3000); // Simulate success after 3 seconds
   // };
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className='flex justify-center items-center"'>Loading...</div>;
   if (error) return <div>{error}</div>;
   return (
     <div className="dashboard container  px-2 py-2 md:px-4 md:py-8">
