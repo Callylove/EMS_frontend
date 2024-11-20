@@ -1,10 +1,12 @@
 import axios from 'axios'
 import  { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../AuthProvider/useAuth';
 // import React from 'react';
 export default function Login() {
       
       const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
+      const { login } = useAuth();
     const navigate = useNavigate()
     const [errors,setErrors] = useState(null)
     const [values,setValues] = useState({
@@ -20,7 +22,9 @@ axios.post(`${apiUrl}/auth/login`,values)
 .then(res=>{
     
     if (res.data.loginStatus) {
-
+      const userRole = res.data.role;
+      login(userRole);  
+  
         // Check user role in the response
         if (res.data.role === "admin") {
           
