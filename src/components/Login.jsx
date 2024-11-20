@@ -99,8 +99,9 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!values.email || !values.password) return setErrors("Please enter your email or password")
+    setErrors('')
     setLoading(true); // Set loading to true when form is submitted
-
+   
     axios
       .post(`${apiUrl}/auth/login`, values)
       .then((res) => {
@@ -140,15 +141,16 @@ export default function Login() {
 
   return (
     <div className="w-full flex flex-col min-h-screen justify-center items-center ">
-      <div className="flex flex-col border rounded shadow  p-6">
-      
-        <h2 className="text-xl font-bold tracking-medium mb-6 text-center text-green-600">LOGIN</h2>
-          {/* Display success message */}
-          {successMessage && (
+         {/* Display success message */}
+         {successMessage && (
           <div className="text-green-600 mb-2">
             <p>{successMessage}</p>
           </div>
         )}
+      <div className="flex flex-col border rounded shadow  p-6">
+      
+        <h2 className="text-xl font-bold tracking-medium mb-6 text-center text-green-600">LOGIN</h2>
+       
         <div className="text-red-500 mb-2 ">
           <p>{errors && errors}</p>
         </div>
@@ -185,7 +187,7 @@ export default function Login() {
     disabled={loading} // Disable the button while loading
   >
     {loading ? (
-      <div className="w-5 h-5 border-4 border-t-4 border-white rounded-full animate-spin flex justify-center items-center"></div>
+      <div className="w-5 h-5 border-4 border-t-4 border-white w-full rounded-full animate-spin flex justify-center items-center"></div>
     ) : (
       'LOGIN'
     )}

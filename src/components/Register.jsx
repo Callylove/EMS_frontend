@@ -533,16 +533,17 @@ export default function Register() {
 
   return (
     <div className="w-full flex flex-col min-h-screen justify-start items-center">
-      <div className="flex flex-col border rounded shadow p-2 md:p-6">
-        <h2 className="text-xl font-bold tracking-medium mb-6 text-center text-green-600">
-          Register
-        </h2>
-         {/* Display success message */}
-         {successMessage && (
+       {/* Display success message */}
+       {successMessage && (
           <div className="text-green-600 mb-2">
             <p>{successMessage}</p>
           </div>
         )}
+      <div className="flex flex-col border rounded shadow p-2 md:p-6">
+        <h2 className="text-xl font-bold tracking-medium mb-6 text-center text-green-600">
+          Register
+        </h2>
+        
         {errors.db && <span className="text-red-600">{errors.db}</span>}
         <form
           className="grid grid-rows-2 gap-2"
