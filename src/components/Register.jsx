@@ -362,7 +362,7 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import {  Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
   // eslint-disable-next-line no-undef
@@ -675,7 +675,10 @@ export default function Register() {
             className="rounded px-4 h-8 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
           />
           {errors.image && <span className="text-red-600">{errors.image}</span>}
-
+          <div className="flex gap-4">
+        <p> Have an account already?</p>
+        <Link to='/auth/login' className="border-b border-green-600 text-green-600">Login</Link>
+        </div>
           <div className="flex justify-center items-center w-full">
   <button
     type="submit"

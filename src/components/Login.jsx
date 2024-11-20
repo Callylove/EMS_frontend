@@ -181,6 +181,7 @@ export default function Login() {
             </Link>
           </div>
           <div className="flex justify-center items-center w-full">
+            
   <button
     type="submit"
     className="border w-[80px] flex items-center justify-center h-8 rounded border-green-600 bg-green-600 text-white hover:bg-green-500"
@@ -193,6 +194,7 @@ export default function Login() {
     )}
   </button>
 </div>
+
         </form>
       </div>
     </div>
