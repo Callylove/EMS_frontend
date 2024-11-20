@@ -97,6 +97,7 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!values.email || !values.password) return setErrors("Please enter your email or password")
     setLoading(true); // Set loading to true when form is submitted
 
     axios
