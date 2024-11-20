@@ -7,7 +7,6 @@ export default function Register() {
       // eslint-disable-next-line no-undef
       const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
     const [category,setCategory] = useState([])
-    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();    
     const [errors, setErrors] = useState({
       phone: '',
@@ -154,8 +153,6 @@ export default function Register() {
               }
       } catch (error) {
         console.error('Error uploading data:', error);
-      } finally {
-        setLoading(false);
       }
     };
       // Log the employee object to check its state
@@ -213,7 +210,6 @@ export default function Register() {
   //       alert('There was an error while submitting the form');
   //     }
   //   };
-  if (loading) return <div className='text-center'>Loading...</div>;
   return (
     <div className='w-full flex flex-col min-h-screen justify-start items-center '>
        
