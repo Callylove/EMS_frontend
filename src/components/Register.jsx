@@ -682,7 +682,7 @@ export default function Register() {
           <div className="flex justify-center items-center w-full">
   <button
     type="submit"
-    className="border w-[80px] flex items-center justify-center h-8 rounded border-green-600 bg-green-600 text-white hover:bg-green-500"
+    className="border w-[150px] flex items-center justify-center h-8 rounded border-green-600 bg-green-600 text-white hover:bg-green-500"
     disabled={isLoading} // Disable the button while loading
   >
     {isLoading ? (
