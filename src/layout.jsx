@@ -239,7 +239,7 @@ const Layout = () => {
   const fetchUserRoleAndSetSidebar = async () => {
     try {
       const response = await axios.get(`${apiUrl}/auth/dashboard`, { withCredentials: true });
-      const role = response.data?.user?.role;
+      const role = response.data.user?.role;
       console.log('Role:', role);
 
       // Dynamically set sidebar items based on the role
