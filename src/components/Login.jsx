@@ -7,7 +7,6 @@ export default function Login() {
       
       const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
       const { login } = useAuth();
-      
     const navigate = useNavigate()
     const [errors,setErrors] = useState(null)
     const [values,setValues] = useState({
@@ -50,8 +49,7 @@ axios.post(`${apiUrl}/auth/login`,values)
 
 
     }
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>{error}</div>;
+    
   return (
     <div className='w-full flex flex-col min-h-screen justify-center items-center '>
        
