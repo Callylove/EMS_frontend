@@ -140,7 +140,7 @@ axios.delete(`${apiUrl}/admin/delete_employee/${id}`)
         <tr key={e.id} className="border-b hover:bg-gray-50">
           <td className="px-4 py-2 text-sm text-gray-700">{e.fullname.charAt(0).toUpperCase() + e.fullname.slice(1).toLowerCase()}</td>
           <td className=" text-sm">
-            <img src={`${apiUrl}/${e.image}`} alt={e.fullname} className="h-16 w-16 rounded-full object-cover" />
+            <img src={`${apiUrl}/images/${e.image}`} alt={e.fullname} className="h-16 w-16 rounded-full object-cover" />
           </td>
           <td className="px-4 py-2 text-sm text-gray-700">{e.email}</td>
           <td className="px-4 py-2 text-sm text-gray-700">{e.phone}</td>
