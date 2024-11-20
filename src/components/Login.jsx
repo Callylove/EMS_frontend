@@ -7,6 +7,7 @@ export default function Login() {
       
       const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
       const { login } = useAuth();
+      const [loading, setLoading] = useState(true);
     const navigate = useNavigate()
     const [errors,setErrors] = useState(null)
     const [values,setValues] = useState({
@@ -44,11 +45,14 @@ axios.post(`${apiUrl}/auth/login`,values)
     // if(res.data.loginStatus){
     //     navigate('/admin-dashboard')
     // }
+    setLoading(false);
 })
 .catch(err=>console.log(err))
 
 
     }
+    if (loading) return <div className='text-center'>Loading...</div>;
+
   return (
     <div className='w-full flex flex-col min-h-screen justify-center items-center '>
        
