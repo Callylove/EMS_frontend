@@ -183,11 +183,11 @@ export default function Login() {
           <div className="flex justify-center items-center w-full">
   <button
     type="submit"
-    className="border w-[80px] h-8 rounded border-green-600 bg-green-600 text-white hover:bg-green-500"
+    className="border w-[80px] flex items-center justify-center h-8 rounded border-green-600 bg-green-600 text-white hover:bg-green-500"
     disabled={loading} // Disable the button while loading
   >
     {loading ? (
-      <div className="w-5 h-5 border-4 border-t-4 border-white w-full rounded-full animate-spin flex justify-center items-center"></div>
+      <div className="w-5 h-5 border-4 border-t-4 border-white  rounded-full animate-spin"></div>
     ) : (
       'LOGIN'
     )}
