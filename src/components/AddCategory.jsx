@@ -99,17 +99,19 @@ export default function AddCategory() {
             onChange={(e) => setCategory(e.target.value)}
             disabled={isLoading} // Disable input while loading
           />
-           <button
-            type="submit"
-            className="border w-[80px] h-8 self-center justify-self-center mt-6 rounded border-green-600 bg-green-600 text-white hover:bg-green-500"
-            disabled={isLoading} // Disable the button while loading
-          >
-            {isLoading ? (
-              <div className="w-5 h-5 border-4 border-t-4 border-white rounded-full animate-spin flex justify-center items-center"></div>
-            ) : (
-              'Add Category'
-            )}
-          </button>
+                <div className="flex justify-center items-center w-full">
+  <button
+    type="submit"
+    className="border w-[80px] h-8 rounded border-green-600 bg-green-600 text-white hover:bg-green-500"
+    disabled={isLoading} // Disable the button while loading
+  >
+    {isLoading ? (
+      <div className="w-5 h-5 border-4 border-t-4 border-white rounded-full animate-spin flex justify-center items-center"></div>
+    ) : (
+      'Add Category'
+    )}
+  </button>
+</div>
         </form>
       </div>
     </div>

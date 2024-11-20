@@ -368,6 +368,7 @@ export default function Register() {
   // eslint-disable-next-line no-undef
   const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
   const [category, setCategory] = useState([]);
+  const [successMessage, setSuccessMessage] = useState(""); 
   const navigate = useNavigate();
   const [errors, setErrors] = useState({
     phone: "",
@@ -512,7 +513,14 @@ export default function Register() {
       });
 
       if (response.data.Status) {
-        navigate("/auth/login");
+        setSuccessMessage("Account registered Successful! Redirecting to login...");
+
+        // Show the success message for 2 seconds before redirecting
+        setTimeout(() => {
+          navigate("/auth/login");// Redirect to login
+        }, 2000);
+        
+      
       } else {
         setErrors({ ...errors, db: response.data.error });
       }
@@ -529,13 +537,20 @@ export default function Register() {
         <h2 className="text-xl font-bold tracking-medium mb-6 text-center text-green-600">
           Register
         </h2>
+         {/* Display success message */}
+         {successMessage && (
+          <div className="text-green-600 mb-2">
+            <p>{successMessage}</p>
+          </div>
+        )}
+        {errors.db && <span className="text-red-600">{errors.db}</span>}
         <form
           className="grid grid-rows-2 gap-2"
           onSubmit={handleSubmit}
           method="POST"
           encType="multipart/form-data"
         >
-          {errors.db && <span className="text-red-600">{errors.db}</span>}
+          
           <label htmlFor="fullname" className="font-normal tracking-medium">
             Full Name
           </label>
@@ -660,17 +675,19 @@ export default function Register() {
           />
           {errors.image && <span className="text-red-600">{errors.image}</span>}
 
-          <button
-            type="submit"
-            className="bg-green-600 text-white py-2 rounded mt-4"
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <div className="w-5 h-5 border-4 border-t-4 border-white rounded-full animate-spin flex justify-center items-center" role="status"></div>
-            ) : (
-              "Create Account"
-            )}
-          </button>
+          <div className="flex justify-center items-center w-full">
+  <button
+    type="submit"
+    className="border w-[80px] h-8 rounded border-green-600 bg-green-600 text-white hover:bg-green-500"
+    disabled={isLoading} // Disable the button while loading
+  >
+    {isLoading ? (
+      <div className="w-5 h-5 border-4 border-t-4 border-white rounded-full animate-spin flex justify-center items-center"></div>
+    ) : (
+      'Create Account'
+    )}
+  </button>
+</div>
         </form>
       </div>
     </div>

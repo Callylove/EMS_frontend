@@ -86,6 +86,7 @@ export default function Login() {
   const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [successMessage, setSuccessMessage] = useState(""); 
   const [errors, setErrors] = useState(null);
   const [values, setValues] = useState({
     email: '',
@@ -110,9 +111,21 @@ export default function Login() {
 
           // Check user role in the response
           if (res.data.role === 'admin') {
-            navigate('/admin/dashboard');
+            setSuccessMessage("Login Successful! Redirecting to dashboard...");
+
+            // Show the success message for 2 seconds before redirecting
+            setTimeout(() => {
+              navigate('/admin/dashboard'); // Redirect to dashboard
+            }, 2000);
+            
           } else if (res.data.role === 'user') {
-            navigate('/user/dashboard');
+            setSuccessMessage("Login Successful! Redirecting to dashboard...");
+
+            // Show the success message for 2 seconds before redirecting
+            setTimeout(() => {
+              navigate('/user/dashboard');// Redirect to dashboard
+            }, 2000);
+            
           }
         } else {
           setErrors(res.data.error);
@@ -128,10 +141,17 @@ export default function Login() {
   return (
     <div className="w-full flex flex-col min-h-screen justify-center items-center ">
       <div className="flex flex-col border rounded shadow  p-6">
+      
+        <h2 className="text-xl font-bold tracking-medium mb-6 text-center text-green-600">LOGIN</h2>
+          {/* Display success message */}
+          {successMessage && (
+          <div className="text-green-600 mb-2">
+            <p>{successMessage}</p>
+          </div>
+        )}
         <div className="text-red-500 mb-2 ">
           <p>{errors && errors}</p>
         </div>
-        <h2 className="text-xl font-bold tracking-medium mb-6 text-center text-green-600">LOGIN</h2>
         <form onSubmit={handleSubmit} className="grid grid-rows-2  gap-2" method="POST">
           <label htmlFor="email" className="font-normal tracking-medium">Email</label>
           <input
@@ -158,17 +178,19 @@ export default function Login() {
               Register
             </Link>
           </div>
-          <button
-            type="submit"
-            className="border w-[80px] h-8 self-center justify-self-center mt-6 rounded border-green-600 bg-green-600 text-white hover:bg-green-500"
-            disabled={loading} // Disable the button while loading
-          >
-            {loading ? (
-              <div className="w-5 h-5 border-4 border-t-4 border-white rounded-full animate-spin flex justify-center items-center"></div>
-            ) : (
-              'LOGIN'
-            )}
-          </button>
+          <div className="flex justify-center items-center w-full">
+  <button
+    type="submit"
+    className="border w-[80px] h-8 rounded border-green-600 bg-green-600 text-white hover:bg-green-500"
+    disabled={loading} // Disable the button while loading
+  >
+    {loading ? (
+      <div className="w-5 h-5 border-4 border-t-4 border-white rounded-full animate-spin flex justify-center items-center"></div>
+    ) : (
+      'LOGIN'
+    )}
+  </button>
+</div>
         </form>
       </div>
     </div>
