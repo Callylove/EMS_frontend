@@ -267,7 +267,11 @@ const Layout = () => {
     }
   };
   
-  fetchUserRoleAndSetSidebar();
+  useEffect(() => {
+    if (role) {
+      fetchUserRoleAndSetSidebar();
+    }
+  }, [role]); 
   // useEffect(()=>{
    
   // },[])
